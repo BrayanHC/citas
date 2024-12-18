@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use GuzzleHttp\Psr7\Request;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+//use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -25,7 +27,13 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/admin';
+
+    /*protected function loggedOut(Request $request)
+{
+    return redirect('/'); // Redirigir a la página de inicio
+}*/
+
 
     /**
      * Create a new controller instance.

@@ -51,6 +51,7 @@ class PacienteController extends Controller
         $paciente->alergias = $request->alergias;
         $paciente->contacto_emergencia = $request->contacto_emergencia;
         $paciente->save();
+        
 
         return redirect()->route('admin.pacientes.index')
         ->with('mensaje', 'Se registro al paciente con exito')

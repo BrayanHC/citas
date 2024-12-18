@@ -61,8 +61,8 @@
                     "language": {
                         "emptyTable": "No hay información",
                         "info": "",
-                        "infoEmpty": "Mostrando 0 a 0 de 0 Consultorios",
-                        "infoFiltered": "(Filtrado de MAX total Consultorios)",
+                        "infoEmpty": "Mostrando 0 a 0 de 0 Doctores",
+                        "infoFiltered": "(Filtrado de MAX total Doctores)",
                         "infoPostFix": "",
                         "thousands": ",",
                         "lengthMenu": "Mostrar MENU Consultorios",

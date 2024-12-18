@@ -1,75 +1,67 @@
 @extends('layouts.admin')
 @section('content')
     <div class="row">
-        <h1>Doctor/a: {{$doctor->nombres." ".$doctor->apellidos}}</h1>
+        <h1>Datos del Horario</h1>
     </div>
     <hr>
 
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-10">
             <div class="card card-outline card-info">
                   <div class="card-header">
                     <h3 class="card-title">Datos registrados</h3>
                   </div>
                   <div class="card-body" style="display: block;">
-                    
+                    <form action="{{url('/admin/horarios/create')}}" method="POST">
+                        @csrf
                         <div class="row">
                             <div class="col-md-3">
                                 <div class="form group">
-                                    <label for="">Nombres del Doctor/a</label>
-                                    <p>{{$doctor->nombres}}</p>
+                                    <label for="">Dia</label>
+                                    <p>{{$horario->dia}}</p>
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form group">
-                                    <label for="">Apellidos del Doctor/a</label>
-                                    <p>{{$doctor->apellidos}}</p>
+                                    <label for="">Hora inicio</label>
+                                    <p>{{$horario->hora_inicio}}</p>
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form group">
-                                    <label for="">Telefono</label>
-                                    <p>{{$doctor->telefono}}</p>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form group">
-                                    <label for="">Licencia medica</label>
-                                    <p>{{$doctor->licencia_medica}}</p>
-                                </div>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-md-3">
-                                <div class="form group">
-                                    <label for="">Especialidad</label> <b>*</b>
-                                    <p>{{$doctor->especialidad}}</p>
+                                    <label for="">Hora Final</label>
+                                    <p>{{$horario->hora_fin}}</p>
                                 </div>
                             </div>
                             
                         </div>
                         <hr>
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="form group">
-                                    <label for="">Email</label> <b>*</b>
-                                    <p>{{$doctor->user->email}}</p>
+                                    <label for="">Doctores</label>
+                                    <p>{{$horario->doctor->nombres." ".$horario->doctor->apellidos." - ".$horario->doctor->especialidad}}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form group">
+                                    <label for="">Consultorios</label>
+                                    <p>{{$horario->consultorio->nombre." ".$horario->consultorio->ubicacion}}</p>
                                 </div>
                             </div>
                             
                         </div>
+                        
                         <hr>
             
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form group">
                                     <a href="{{url('admin/doctores')}}" class="btn btn-secondary">Volver</a>
-                                    
                                 </div>
                             </div>
                         </div>
-                    
+                    </form>
                   </div>
             </div>
         </div>

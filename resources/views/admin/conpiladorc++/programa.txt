@@ -1,0 +1,5 @@
+inicio
+entero x;
+x = 3 + 5 * (2 - 8);
+imprimir << x;
+fin

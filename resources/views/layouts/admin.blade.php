@@ -27,6 +27,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- Sweet alert 2-->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+  <!-- Calendary-->
+  <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js'></script>
+  <script src="{{url('fullcalendar/es.global.js')}}"></script>
+
 <script data-cfasync="false" nonce="760ab26a-1769-4692-9a05-978f72459e00">try{(function(w,d){!function(cJ,cK,cL,cM){if(cJ.zaraz)console.error("zaraz is loaded twice");else{cJ[cL]=cJ[cL]||{};cJ[cL].executed=[];cJ.zaraz={deferred:[],listeners:[]};cJ.zaraz._v="5815";cJ.zaraz._n="760ab26a-1769-4692-9a05-978f72459e00";cJ.zaraz.q=[];cJ.zaraz._f=function(cN){return async function(){var cO=Array.prototype.slice.call(arguments);cJ.zaraz.q.push({m:cN,a:cO})}};for(const cP of["track","set","debug"])cJ.zaraz[cP]=cJ.zaraz._f(cP);cJ.zaraz.init=()=>{var cQ=cK.getElementsByTagName(cM)[0],cR=cK.createElement(cM),cS=cK.getElementsByTagName("title")[0];cS&&(cJ[cL].t=cK.getElementsByTagName("title")[0].text);cJ[cL].x=Math.random();cJ[cL].w=cJ.screen.width;cJ[cL].h=cJ.screen.height;cJ[cL].j=cJ.innerHeight;cJ[cL].e=cJ.innerWidth;cJ[cL].l=cJ.location.href;cJ[cL].r=cK.referrer;cJ[cL].k=cJ.screen.colorDepth;cJ[cL].n=cK.characterSet;cJ[cL].o=(new Date).getTimezoneOffset();if(cJ.dataLayer)for(const cT of Object.entries(Object.entries(dataLayer).reduce(((cU,cV)=>({...cU[1],...cV[1]})),{})))zaraz.set(cT[0],cT[1],{scope:"page"});cJ[cL].q=[];for(;cJ.zaraz.q.length;){const cW=cJ.zaraz.q.shift();cJ[cL].q.push(cW)}cR.defer=!0;for(const cX of[localStorage,sessionStorage])Object.keys(cX||{}).filter((cZ=>cZ.startsWith("_zaraz_"))).forEach((cY=>{try{cJ[cL]["z_"+cY.slice(7)]=JSON.parse(cX.getItem(cY))}catch{cJ[cL]["z_"+cY.slice(7)]=cX.getItem(cY)}}));cR.referrerPolicy="origin";cR.src="/cdn-cgi/zaraz/s.js?z="+btoa(encodeURIComponent(JSON.stringify(cJ[cL])));cQ.parentNode.insertBefore(cR,cQ)};["complete","interactive"].includes(cK.readyState)?zaraz.init():cJ.addEventListener("DOMContentLoaded",zaraz.init)}}(w,d,"zarazData","script");window.zaraz._p=async bb=>new Promise((bc=>{if(bb){bb.e&&bb.e.forEach((bd=>{try{const be=d.querySelector("script[nonce]"),bf=be?.nonce||be?.getAttribute("nonce"),bg=d.createElement("script");bf&&(bg.nonce=bf);bg.innerHTML=bd;bg.onload=()=>{d.head.removeChild(bg)};d.head.appendChild(bg)}catch(bh){console.error(`Error executing script: ${bd}\n`,bh)}}));Promise.allSettled((bb.f||[]).map((bi=>fetch(bi[0],bi[1]))))}bc()}));zaraz._p({"e":["(function(w,d){})(window,document)"]});})(window,document)}catch(e){throw fetch("/cdn-cgi/zaraz/t"),e;};</script></head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -81,6 +85,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
+          @can('admin.usuarios.index')
           <li class="nav-item">
             <a href="#" class="nav-link active">
             <i class="bi bi-people-fill"></i>
@@ -110,6 +115,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </li>
             </ul>
           </li>
+          @endcan
+
+          @can('admin.secretarias.index')
           <!--Secretarias-->
           <li class="nav-item">
             <a href="#" class="nav-link active">
@@ -140,6 +148,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </li>
             </ul>
           </li>
+          @endcan
+          
+          @can('admin.pacientes.index')
           <!--Pacientes-->
           <li class="nav-item">
             <a href="#" class="nav-link active">
@@ -170,6 +181,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </li>
             </ul>
           </li>
+          @endcan
+          
+          @can('admin.consultorios.index')
           <!--Consultorios-->
           <li class="nav-item">
             <a href="#" class="nav-link active">
@@ -200,7 +214,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </li>
             </ul>
           </li>
-
+          @endcan
+          
+          @can('admin.doctores.index')
           <!--Doctores-->
           <li class="nav-item">
             <a href="#" class="nav-link active">
@@ -231,16 +247,58 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </li>
             </ul>
           </li>
+          @endcan
+
+          @can('admin.horarios.index')
+          <!--Horarios-->
+          <li class="nav-item">
+            <a href="#" class="nav-link active">
+              <i class="bi bi-calendar2-week"></i>
+              <p>
+                 Horarios
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{url('admin/horarios/create')}}" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Añadir Horarios</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{url('admin/horarios')}}" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Lista de Horarios</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Calendario</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          @endcan
+          
 
           <li class="nav-item">
-            <a href="#" class="nav-link" style="background-color: red;">
+            <a href="{{ route('logout') }}" class="nav-link" style="background-color: red;" id=""
+              onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();"
+            >
             <i class="bi bi-door-open"></i>
               <p>
                 Cerrar sesion
                 
               </p>
             </a>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
           </li>
+
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
