@@ -189,7 +189,9 @@
 </button>
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<form action="{{url('admin/eventos/create')}}" method="post">
+  @csrf
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -203,7 +205,7 @@
           <div class="col-md-12">
             <div class="forn-grop">
               <label for="">Doctor</label>
-              <select name="" id="" class="form-control">
+              <select name="doctor_id" id="" class="form-control">
                 @foreach ($doctores as $doctore)
                     <option value="{{$doctore->id}}">{{$doctore->nombres." ".$doctore->apellidos." - ".$doctore->especialidad}}</option>
                 @endforeach
@@ -214,25 +216,68 @@
           <div class="col-md-12">
             <div class="forn-grop">
               <label for="">Fecha de reserva</label>
-              <input type="date" class="form-control">
+              <input type="date" id="fecha_reserva" 
+              value="<?php 
+              echo date('Y-m-d');
+              ?>"
+              name="fecha_reserva" class="form-control">
+              <script>
+                document.addEventListener('DOMContentLoaded',function (){
+                    const fechaReservaInput=document.getElementById('fecha_reserva');
+
+                    //Escuchar el evento de cambio en el campo de fecha reserva
+                    fechaReservaInput.addEventListener('change',function (){
+                        let selectedDate=this.value;//Obtener la Fecha seleccionada
+                        //Obtener la fecha actual en formato ISO (yyyy-mm-dd)
+                        let today=new Date().toISOString().slice(0,10);
+                        //Verificar si la fecha seleccionada es anterior a la fecha actual
+                        if (selectedDate < today){
+                            //Si es así, establecer la fecha seleccionada en null
+                            this.value=null;
+                            alert ('No se puede reservar en una fecha pasada.');
+                        }
+                    });
+                });
+            </script>
             </div>
           </div>
 
           <div class="col-md-12">
             <div class="forn-grop">
               <label for="">Hora de reserva</label>
-              <input type="time" class="form-control">
+              <input type="time" id="hora_reserva" name="hora_reserva" class="form-control">
+              @error('hora_reserva')
+                <small style="color: red">{{$message}}</small>
+              @enderror
             </div>
+            <script>
+              document.addEventListener('DOMContentLoaded', function (){
+                  const horaReservaInput = document.getElementById('hora_reserva');
+                  horaReservaInput.addEventListener('change',function (){
+                      let seletedTime = this.value;
+                      if(seletedTime){
+                          seletedTime = seletedTime.split(':');
+                          seletedTime = seletedTime[0]+ ':00';
+                          this.value = seletedTime;
+                      }
+                      if(seletedTime<'08:00' || seletedTime>'20:00'){
+                          this.value = null;
+                          alert('Porfavor ingrese un horario entre las 08:00 de la mañana y 20:00 de la tarde');
+                      };
+                  });
+              });
+          </script>
           </div>
         </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary">Registrar</button>
+        <button type="submit" class="btn btn-primary">Registrar</button>
       </div>
     </div>
   </div>
 </div>
+</form>
               </div>
               <div id='calendar'></div>
             </div>
