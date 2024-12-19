@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\Auth;
 Route::get('/', [App\Http\Controllers\WebController::class, 'index'])->name('index');
 //ajax
 Route::get('/consultorios/{id}', [App\Http\Controllers\WebController::class, 'cargar_datos_consultorios'])->name('cargar_datos_consultorios');
+Route::get('/cargar_reserva_doctores/{id}', [App\Http\Controllers\WebController::class, 'cargar_reserva_doctores'])->name('cargar_reserva_doctores');
+
 Route::post('/admin/eventos/create', [App\Http\Controllers\EventController::class, 'store'])->name('admin.eventos.create');
 
 

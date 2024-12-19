@@ -171,15 +171,52 @@
             <div class="card-body">
                 <div class="row">
                     <div class="form group">
-                        <label for="">Consultorios</label>
-                        <select name="consultorio_id" id="consultorio_select" class="form-control">
-                            @foreach ($consultorios as $consultorio)
-                                <option value="{{$consultorio->id}}">{{$consultorio->nombre." - ".$consultorio->ubicacion}}</option>
+                        <label for="">Doctores</label>
+                        <select name="doctor_id" id="doctor_select" class="form-control">
+                          <option value="">seleccione su doctor....</option>  
+                          @foreach ($doctores as $doctore)
+                                <option value="{{$doctore->id}}">{{$doctore->nombre." ".$doctore->apellidos." - ".$doctore->especialidad}}</option>
                             @endforeach
                         </select>
+                        <script>
+                          $('#doctor_select').on('change',function(){
+                              var doctor_id =  $('#doctor_select').val();
+                              //alert(consultorio_id);
+                              /*var url = "{{route('admin.horarios.cargar_datos_consultorios',':id')}}";
+                              url = url.replace(':id', consultorio_id);*/
+                              
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+          initialView: 'dayGridMonth',
+          locale: 'es',
+          events: [],
+        });
+        
+
+                              if(doctor_id){
+                                  $.ajax({
+                                      url: "{{url('/cargar_reserva_doctores/')}}" + '/' + doctor_id,
+                                      type: 'GET',
+                                      dataType: 'json',
+                                      success:function (data){
+                                          calendar.addEventSource(data);
+                                      },
+                                      error: function (){
+                                          alert('Error al obtener los datos del consultorio');
+                                      }
+                                  });
+                              }else{
+                                  $('#doctor_info').html('');
+                              }
+                              calendar.render();
+                          });
+                      </script>
                     </div>
                 </div>
                 
+            </div>
+            <div id="doctor_info">
+
             </div>
             <div class="card-body">
               <div class="row">
@@ -187,6 +224,8 @@
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
   Registrar cita medica
 </button>
+
+<a href="" class="btn btn-success"><i class="bi bi-calendar2-check"></i> Ver las reservas</a>
 
 <!-- Modal -->
 <form action="{{url('admin/eventos/create')}}" method="post">
@@ -249,6 +288,13 @@
               @error('hora_reserva')
                 <small style="color: red">{{$message}}</small>
               @enderror
+              @if((($message = Session::get('hora_reserva'))) )
+            <script>
+              document.addEventListener('DOMContentLoaded', function(){
+              $('#exampleModal').modal('show');
+              });
+            </script>
+        @endif
             </div>
             <script>
               document.addEventListener('DOMContentLoaded', function (){
@@ -285,22 +331,5 @@
     </div>
     </div>
 
-    <script>
-
-      document.addEventListener('DOMContentLoaded', function() {
-        var calendarEl = document.getElementById('calendar');
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-          initialView: 'dayGridMonth',
-          locale: 'es',
-          events: [{
-            title: 'Consultorio Odontologia',
-            start: '2024-12-18',
-            end: '2024-12-20',
-            color: '#a9200e',
-          }]
-        });
-        calendar.render();
-      });
-
-    </script>
+   
 @endsection
