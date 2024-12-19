@@ -9,8 +9,9 @@ use App\Models\Horario;
 use App\Models\Paciente;
 use App\Models\Secretaria;
 use App\Models\User;
-
+use Illuminate\Console\Scheduling\Event as SchedulingEvent;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Event as FacadesEvent;
 
 class AdminController extends Controller
 {
@@ -36,5 +37,10 @@ class AdminController extends Controller
           'doctores',
           'eventos'
         ));
+    }
+
+    public function ver_reservas($id){
+        $eventos = Event::where('user_id', $id)->get();
+        return view('admin.ver_reservas', compact('eventos'));
     }
 }

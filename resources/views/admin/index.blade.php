@@ -225,7 +225,7 @@
   Registrar cita medica
 </button>
 
-<a href="" class="btn btn-success"><i class="bi bi-calendar2-check"></i> Ver las reservas</a>
+<a href="{{url('/admin/ver_reservas', Auth::user()->id)}}" class="btn btn-success"><i class="bi bi-calendar2-check"></i> Ver las reservas</a>
 
 <!-- Modal -->
 <form action="{{url('admin/eventos/create')}}" method="post">
