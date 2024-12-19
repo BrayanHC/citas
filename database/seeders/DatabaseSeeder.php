@@ -6,6 +6,7 @@ namespace Database\Seeders;
 
 use App\Models\Consultorio;
 use App\Models\Doctor;
+use App\Models\Horario;
 use App\Models\Paciente;
 use App\Models\Secretaria;
 use App\Models\User;
@@ -134,5 +135,15 @@ class DatabaseSeeder extends Seeder
         ])->assignRole('usuario'); 
         
         $this->call([Pacienteseeder::class,]);
+
+
+        //creacion de horaios
+        Horario::create([
+            'dia'=>'LUNES',
+            'hora_inicio'=>'08:00:00',
+            'hora_fin'=>'14:00:00',
+            'doctor_id'=>'1',
+            'consultorio_id'=>'1',
+        ]);
     }
 }
